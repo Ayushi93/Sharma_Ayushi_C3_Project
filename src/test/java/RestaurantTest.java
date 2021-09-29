@@ -62,7 +62,7 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
 
-//<<<<<<<<<<<<<Adding the feature to calculate cost of the items selected from menu>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<Adding the passed cases to calculate cost of the items selected from menu>>>>>>>>>>>>>>>>>>>>
 
     @Test
     public void order_cost_should_display_the_cumulative_cost_of_the_selected_items(){
