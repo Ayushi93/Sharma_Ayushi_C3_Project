@@ -1,12 +1,16 @@
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RestaurantTest {
     Restaurant restaurant;
+
+    List<Item> items = new ArrayList<>();
 
     //REFACTORING ALL THE REPEATED LINES OF CODE
 
@@ -56,6 +60,39 @@ class RestaurantTest {
 
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+
+//<<<<<<<<<<<<<Adding the feature to calculate cost of the items selected from menu>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void order_cost_should_display_the_cumulative_cost_of_the_selected_items(){
+        addRestaurantDetails();
+
+        //Fetching the list of items from the menu..
+        items = restaurant.getMenu();
+
+        //Getting the cost of the items selected using getOrderCost Method.
+        assertEquals(388, restaurant.getOrderCost(items));
+    }
+
+    @Test
+    public void order_cost_should_reduce_the_cumulative_cost_when_an_item_is_deselected(){
+        addRestaurantDetails();
+
+        //Fetching the list of items from the menu..
+        items = restaurant.getMenu();
+
+        //Getting the cost before deselecting
+        int currentCost = restaurant.getOrderCost(items);
+
+        //Getting the cost of item to be deselected
+        int costDeselectedItem = items.get(1).getPrice();
+
+        //Deselecting the item
+        items.remove(1);
+
+        //Assertion
+        assertEquals(currentCost - costDeselectedItem, restaurant.getOrderCost(items));
     }
 
 }
